@@ -1,4 +1,4 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">]\
+<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
     <div class="mb-3 form-floating">
@@ -6,14 +6,14 @@
         <label>Usename</label>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
         <label>Who is your favirite user?</label>
         <select class="form-select">
             @for (user of usersFromHomeComponent(); track $index) {
                 <option [value]="user.usrname">{{user.userName}}</option>
             }
         </select>
-    </div>
+    </div> -->
 
     <div class="mb-3 form-floating">
         <input  name="password" [(ngModel)]="model.password"  type="password" class="form-control" placeholder="Username">
@@ -26,4 +26,3 @@
     </div>
 
 </form>
-<pre> {{usersFromHomeComponent |  json}} </pre>
