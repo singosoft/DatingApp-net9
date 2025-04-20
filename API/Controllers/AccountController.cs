@@ -11,7 +11,7 @@ namespace API.Controllers;
 public class AccountController(DataContext context , ITokenService tokenService) : BaseApiController
 {
     [HttpPost("login")]
-    public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await context.Users.FirstOrDefaultAsync(u =>
             u.UserName == loginDto.Username.ToLower());
@@ -23,7 +23,11 @@ public class AccountController(DataContext context , ITokenService tokenService)
         {
             if(computeHash[i]!= user.PasswordHash[i]) return Unauthorized("Invalid password");
         }
-        return user;
+        
+        return new UserDto {
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user)  
+        };
     }
 
     [HttpPost("register")]
