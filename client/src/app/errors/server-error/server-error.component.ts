@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-server-error',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './server-error.component.html',
   styleUrl: './server-error.component.css'
 })

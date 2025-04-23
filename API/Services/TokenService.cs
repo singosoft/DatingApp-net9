@@ -24,7 +24,9 @@ public class TokenService(IConfiguration config) : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = creds
+            SigningCredentials = creds,
+            Issuer = config["TokenIssuer"],    // << เพิ่มตรงนี้
+            Audience = config["TokenAudience"] // << และตรงนี้
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();

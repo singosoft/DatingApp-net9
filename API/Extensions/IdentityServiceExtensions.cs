@@ -12,13 +12,20 @@ public static class IdentityServiceExtensions
        .AddJwtBearer(options =>
        {
            var tokenKey = config["TokenKey"] ?? throw new Exception("TokenKey not found");
+           var issuer = config["TokenIssuer"] ?? throw new Exception("TokenIssuer not found");
+           var audience = config["TokenAudience"] ?? throw new Exception("TokenAudience not found");
            options.TokenValidationParameters = new TokenValidationParameters
            {
                ValidateIssuerSigningKey = true,
                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
-               ValidateAudience = false
+
+               ValidateIssuer = true, // ✅ เปิดการตรวจสอบ issuer
+               ValidIssuer = issuer,  // ✅ ตั้งค่าให้ตรงกับใน token
+
+               ValidateAudience = true, // ถ้าไม่ใช้ก็ปิดไว้ได้
+               ValidAudience = audience
            };
        });
-       return services;
+        return services;
     }
 }
